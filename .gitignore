@@ -22,7 +22,10 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Exported data (never commit user data)
+# Raw/unprocessed data — never commit
 data/
-exports/
-*.csv
+
+# Force-include nightly exports despite global gitignore blocking *.csv
+# These CSVs are anonymised — no personal data, safe to commit
+!exports/
+!exports/*.csv
