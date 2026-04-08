@@ -79,4 +79,4 @@ rapid-kl-live-status-tracker/
 
 ## 📜 License
 
-MIT — see [LICENSE](LICENSE)
+All Rights Reserved — see [LICENSE](LICENSE)
