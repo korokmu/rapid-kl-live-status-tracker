@@ -1,0 +1,6 @@
+# Python dependencies for nightly export script (scripts/nightly_export.py)
+# Activate venv first: source .venv/bin/activate
+# Install: pip install -r requirements.txt
+
+supabase==2.*        # Supabase Python client — connects to database
+python-dotenv==1.*   # Loads .env file for local testing
