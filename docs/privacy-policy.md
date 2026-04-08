@@ -34,7 +34,7 @@ This Privacy Policy explains how Rapid KL Live Status Tracker ("the Service", "w
 
 ## 3. How We Use Your Data
 
-- **Email address**: Used only for login authentication. If you opted in, also used to send updates about this service and related future projects from the same developer.
+- **Email address**: Used only for login authentication. If you opted in, also used to send updates about this service and related future projects from the same developer. We retain your email for this purpose until you delete your account or withdraw consent.
 - **Reports, comments, upvotes**: Displayed publicly on the site to help other commuters. Exported as anonymised CSV (no emails, no names) for statistical analysis.
 
 ---
