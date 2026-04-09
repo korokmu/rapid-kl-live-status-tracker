@@ -50,23 +50,6 @@ rapid-kl-live-status-tracker/
 
 ---
 
-## 🚀 Running Locally
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/<your-username>/rapid-kl-live-status-tracker.git
-   cd rapid-kl-live-status-tracker
-   ```
-
-2. Create a `.env` file in the root with your Supabase credentials:
-   ```
-   SUPABASE_URL=https://your-project.supabase.co
-   SUPABASE_ANON_KEY=your-anon-key
-   ```
-
-3. Open `src/index.html` in your browser — no build step needed.
-
----
 
 ## 📄 Documentation
 
