@@ -30,6 +30,8 @@ data/
 !exports/
 !exports/*.csv
 
-# Internal working documents — keep local only
+# Internal technical docs — keep local only
 GEMINI_BRIEF.md
 plan.md
+docs/architecture.md
+docs/database-schema.md

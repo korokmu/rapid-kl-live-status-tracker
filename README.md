@@ -53,8 +53,6 @@ rapid-kl-live-status-tracker/
 
 ## 📄 Documentation
 
-- [Architecture](docs/architecture.md)
-- [Database Schema](docs/database-schema.md)
 - [Privacy Policy](docs/privacy-policy.md)
 - [Terms of Service](docs/terms-of-service.md)
 
