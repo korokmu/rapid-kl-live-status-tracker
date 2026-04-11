@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://korokmu.github.io/rapid-kl-live-status-tracker/sitemap.xml
