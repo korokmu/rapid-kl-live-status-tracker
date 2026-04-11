@@ -7,6 +7,23 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-04-11
+### Added
+- Marketing consent checkbox to Sign Up flow for legal compliance
+- 2-hour auto-expire rule for live status display (UI resets to Smooth for old reports)
+- "How it Works" guide ❓ accessible via help button in header
+- Date and Time included in all status and comment timestamps
+- Full LRT Kelana Jaya Line station list added to database
+
+### Fixed
+- Authentication form inputs now clear automatically after use
+- RPC 404 error by adding `increment_confirm_count` database function
+- Reports table schema updated with missing `user_id` and `resolved_count` columns
+
+### Changed
+- Nightly export script now archives `comments`, `upvotes`, and `resolves`
+- Verification system now tracks individual user votes to prevent spam
+
 ## [0.3.0] - 2026-04-11
 ### Added
 - SEO meta tags (Open Graph, Twitter Card, description, keywords)
