@@ -1,0 +1,10 @@
+id,station_id,status,category,confirmed_count,is_verified,is_active,created_at
+a15feb33-d0c9-4655-a926-efd696bb40f7,1,slow,,0,False,True,2026-04-09T05:33:59.05897+00:00
+8064e16f-b281-4738-9f7a-f2bde78c7bcd,1,interrupted,,0,False,True,2026-04-09T05:34:11.243672+00:00
+e765381d-b4d2-4a72-bb6d-794c9319dfba,1,smooth,,0,False,True,2026-04-09T05:34:19.292754+00:00
+2d02eb98-7ef4-419a-81eb-a844c481cc1a,1,slow,,0,False,True,2026-04-09T05:36:49.897662+00:00
+2abfe5f3-299b-4f18-8e19-181a7376a06d,1,interrupted,,0,False,True,2026-04-09T05:36:57.529979+00:00
+78c27b0f-dca0-40cb-9a65-4587137e5839,1,smooth,,0,False,True,2026-04-09T05:37:00.513727+00:00
+6cf577e5-f9e9-4195-9aa8-7258162b1b15,1,slow,,0,False,True,2026-04-09T05:37:20.918971+00:00
+60b681fe-7be4-47d9-9e33-b0e9ebec827b,1,interrupted,,0,False,True,2026-04-09T06:12:07.450532+00:00
+feb67d49-cd7e-4d62-bd10-abc538e4a4b4,1,smooth,,0,False,True,2026-04-09T06:13:19.317293+00:00

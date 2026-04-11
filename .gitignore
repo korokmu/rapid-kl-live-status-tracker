@@ -35,3 +35,10 @@ GEMINI_BRIEF.md
 plan.md
 docs/architecture.md
 docs/database-schema.md
+SESSION_REPORT.md
+
+# Test files — not for production
+src/test_connection.html
+
+# SQL setup scripts — reveal internal DB schema
+scripts/*.sql
