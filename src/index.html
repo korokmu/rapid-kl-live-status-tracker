@@ -27,7 +27,10 @@
 <body>
     <div class="app-container">
         <header>
-            <h1>🚆 Rapid KL Live</h1>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>🚆 Rapid KL Live</h1>
+                <button id="help-btn" style="background: none; border: none; font-size: 24px; cursor: pointer; padding: 5px;">❓</button>
+            </div>
             <div class="input-group" style="margin-top: 10px;">
                 <select id="station-selector" style="width: 100%; padding: 10px; border-radius: 8px; border: 2px solid #eee; font-size: 16px; background: white;">
                     <option value="KL Sentral">KL Sentral</option>
@@ -66,7 +69,7 @@
                     <button class="btn btn-interrupted" data-status="interrupted">Interrupted</button>
                 </div>
 
-                <!-- NEW: Quick Categories -->
+                <!-- Quick Categories -->
                 <div id="category-section" style="margin-top: 15px;">
                     <p style="font-size: 14px; font-weight: bold; color: #555; margin-bottom: 10px;">Reason (Optional):</p>
                     <div class="category-grid">
@@ -84,7 +87,7 @@
                 </div>
             </section>
 
-            <!-- NEW: Comments Feed -->
+            <!-- Comments Feed -->
             <section id="comments-section" class="card">
                 <h3>Live Feed</h3>
                 <div id="comments-list">
@@ -112,7 +115,7 @@
                         <label for="password">Password:</label>
                         <input type="password" id="password" required placeholder="Minimum 6 characters">
                     </div>
-                    <!-- NEW: Marketing Consent (Signup only) -->
+                    <!-- Marketing Consent (Signup only) -->
                     <div id="consent-group" style="display: none; margin-bottom: 20px;">
                         <label style="display: flex; align-items: flex-start; gap: 10px; font-weight: normal; cursor: pointer;">
                             <input type="checkbox" id="marketing-consent" style="width: auto; margin-top: 4px;">
@@ -128,6 +131,21 @@
                         Need an account? Sign Up
                     </p>
                 </form>
+            </div>
+        </div>
+
+        <!-- Help Modal -->
+        <div id="help-modal" class="modal" style="display: none;">
+            <div class="modal-content card">
+                <span class="close-help" style="position: absolute; right: 15px; top: 10px; font-size: 28px; font-weight: bold; color: #aaa; cursor: pointer;">&times;</span>
+                <h3>How it Works 💡</h3>
+                <div style="text-align: left; line-height: 1.6;">
+                    <p><strong>1. Check Status:</strong> Pick your station to see real-time updates from other commuters.</p>
+                    <p><strong>2. Report:</strong> See a delay? Sign in to report it. Your update helps everyone!</p>
+                    <p><strong>3. Verify:</strong> Is a report still accurate? Tap "Still Happening" to confirm it for others.</p>
+                    <p><strong>4. Fresh Data:</strong> Reports expire after 2 hours to ensure you only see current info.</p>
+                </div>
+                <button class="btn btn-primary close-help-btn" style="margin-top: 20px;">Got it!</button>
             </div>
         </div>
 

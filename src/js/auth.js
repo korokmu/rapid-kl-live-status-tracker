@@ -13,6 +13,12 @@ const passwordInput = document.getElementById('password');
 const consentGroup = document.getElementById('consent-group');
 const marketingConsent = document.getElementById('marketing-consent');
 
+// Help Modal Elements
+const helpBtn = document.getElementById('help-btn');
+const helpModal = document.getElementById('help-modal');
+const closeHelp = document.querySelector('.close-help');
+const closeHelpBtn = document.querySelector('.close-help-btn');
+
 let isLoginMode = true;
 
 // Helper to clear form inputs
@@ -44,9 +50,9 @@ async function checkUser() {
     }
 }
 
-// 2. Modal Controls
+// 2. Modal Controls (Login)
 loginBtn.addEventListener('click', () => {
-    clearAuthForm(); // Clear whenever we open the modal
+    clearAuthForm(); 
     loginModal.style.display = 'flex';
 });
 
@@ -55,15 +61,30 @@ closeModal.addEventListener('click', () => {
     clearAuthForm();
 });
 
-// Close modal if user clicks outside of the box
+// 3. Modal Controls (Help)
+helpBtn.addEventListener('click', () => {
+    helpModal.style.display = 'flex';
+});
+
+const closeHelpAction = () => {
+    helpModal.style.display = 'none';
+};
+
+closeHelp.addEventListener('click', closeHelpAction);
+closeHelpBtn.addEventListener('click', closeHelpAction);
+
+// Close modals if user clicks outside of the box
 window.addEventListener('click', (event) => {
     if (event.target === loginModal) {
         loginModal.style.display = 'none';
         clearAuthForm();
     }
+    if (event.target === helpModal) {
+        helpModal.style.display = 'none';
+    }
 });
 
-// 3. Toggle between Login and Signup mode
+// 4. Toggle between Login and Signup mode
 toggleAuth.addEventListener('click', () => {
     isLoginMode = !isLoginMode;
     if (isLoginMode) {
@@ -79,11 +100,10 @@ toggleAuth.addEventListener('click', () => {
         consentGroup.style.display = 'block';
         marketingConsent.required = true;
     }
-    // Optional: Clear password when toggling mode for better UX
     passwordInput.value = '';
 });
 
-// 4. Handle Form Submission (Login or Signup)
+// 5. Handle Form Submission (Login or Signup)
 authForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = emailInput.value;
@@ -96,7 +116,6 @@ authForm.addEventListener('submit', async (e) => {
     if (isLoginMode) {
         result = await sb.auth.signInWithPassword({ email, password });
     } else {
-        // For signup, we include marketing_consent in user metadata
         result = await sb.auth.signUp({ 
             email, 
             password,
@@ -118,11 +137,11 @@ authForm.addEventListener('submit', async (e) => {
         if (!isLoginMode) {
             alert('Success! Check your email for a confirmation link.');
         }
-        await checkUser(); // Wait for user state to update
+        await checkUser();
     }
 });
 
-// 5. Handle Logout
+// 6. Handle Logout
 logoutBtn.addEventListener('click', async () => {
     const { error } = await sb.auth.signOut();
     if (error) {
