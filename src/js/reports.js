@@ -58,8 +58,16 @@ async function getStatus() {
     // Filter for active reports
     const activeReports = (station.reports || []).filter(r => r.is_active === true);
 
-    if (activeReports.length > 0) {
-        const activeReport = activeReports.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
+    // Apply 2-hour auto-expire rule for the UI display
+    const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000);
+    const recentReports = activeReports.filter(r => {
+        const reportTime = new Date(r.created_at);
+        const confirmTime = r.last_confirmed_at ? new Date(r.last_confirmed_at) : reportTime;
+        return reportTime > twoHoursAgo || confirmTime > twoHoursAgo;
+    });
+
+    if (recentReports.length > 0) {
+        const activeReport = recentReports.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0];
         currentReportId = activeReport.id;
         
         let statusText = activeReport.status.charAt(0).toUpperCase() + activeReport.status.slice(1);

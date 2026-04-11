@@ -112,6 +112,17 @@
                         <label for="password">Password:</label>
                         <input type="password" id="password" required placeholder="Minimum 6 characters">
                     </div>
+                    <!-- NEW: Marketing Consent (Signup only) -->
+                    <div id="consent-group" style="display: none; margin-bottom: 20px;">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; font-weight: normal; cursor: pointer;">
+                            <input type="checkbox" id="marketing-consent" style="width: auto; margin-top: 4px;">
+                            <span style="font-size: 14px; line-height: 1.4;">
+                                I agree to receive updates about this and related future projects. 
+                                See our <a href="docs/privacy-policy.md" target="_blank">Privacy Policy</a> 
+                                and <a href="docs/terms-of-service.md" target="_blank">Terms of Service</a>.
+                            </span>
+                        </label>
+                    </div>
                     <button type="submit" id="submit-auth" class="btn btn-primary">Sign In</button>
                     <p id="toggle-auth" style="text-align: center; cursor: pointer; color: #007bff; font-size: 14px; margin-top: 15px;">
                         Need an account? Sign Up

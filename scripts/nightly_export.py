@@ -11,14 +11,6 @@ load_dotenv()
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
 
-# Masking for safety: show only first 5 and last 5 characters
-def mask(s):
-    if not s: return "MISSING"
-    return f"{s[:5]}...{s[-5:]}"
-
-print(f"🔗 URL: {SUPABASE_URL}")
-print(f"🔑 Key loaded: {mask(SUPABASE_KEY)}")
-
 if not SUPABASE_URL or not SUPABASE_KEY:
     print("❌ ERROR: Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in .env")
     exit(1)
@@ -26,44 +18,58 @@ if not SUPABASE_URL or not SUPABASE_KEY:
 # 3. Initialize the Supabase "Master" connection
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-def nightly_export():
-    print(f"🚀 Starting nightly export at {datetime.now()}...")
-
-    # 4. Fetch all reports from the database
-    # We use 'sb' to grab everything from the 'reports' table
+def export_table(table_name, date_str):
+    """Fetches all rows from a table and saves to a CSV file."""
+    print(f"📦 Fetching data from: {table_name}...")
     try:
-        response = supabase.table("reports").select("*").execute()
-        reports = response.data
-    except Exception as e:
-        print(f"❌ ERROR fetching reports: {e}")
-        return
-
-    if not reports:
-        print("ℹ️ No reports to export today.")
-    else:
-        # 5. Create a CSV file in the 'exports/' folder
-        today_date = datetime.now().strftime("%Y-%m-%d")
-        filename = f"exports/reports_{today_date}.csv"
+        response = supabase.table(table_name).select("*").execute()
+        data = response.data
         
-        # Ensure the 'exports' folder exists
+        if not data:
+            print(f"ℹ️ No data to export for {table_name}.")
+            return False
+
+        filename = f"exports/{table_name}_{date_str}.csv"
         os.makedirs("exports", exist_ok=True)
 
-        keys = reports[0].keys()
+        keys = data[0].keys()
         with open(filename, "w", newline="") as output_file:
             dict_writer = csv.DictWriter(output_file, fieldnames=keys)
             dict_writer.writeheader()
-            dict_writer.writerows(reports)
+            dict_writer.writerows(data)
         
-        print(f"✅ Successfully exported {len(reports)} reports to {filename}")
+        print(f"✅ Successfully exported {len(data)} rows to {filename}")
+        return True
+    except Exception as e:
+        print(f"❌ ERROR exporting {table_name}: {e}")
+        return False
 
-    # 6. WIPE THE DATABASE (DELETE ALL REPORTS)
-    # We delete everything so tomorrow starts with a "Smooth" status
+def clear_table(table_name):
+    """Deletes all rows from a table."""
+    print(f"🧹 Clearing table: {table_name}...")
     try:
         # Deleting with a filter that matches everything (id is not null)
-        supabase.table("reports").delete().neq("id", "00000000-0000-0000-0000-000000000000").execute()
-        print("🧹 Database wiped clean for tomorrow.")
+        supabase.table(table_name).delete().neq("id", "00000000-0000-0000-0000-000000000000").execute()
+        print(f"✅ {table_name} cleared.")
     except Exception as e:
-        print(f"❌ ERROR wiping database: {e}")
+        print(f"❌ ERROR clearing {table_name}: {e}")
+
+def nightly_job():
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    print(f"🚀 Starting nightly export job for {today_str}...")
+
+    # 1. Export all tables
+    tables_to_export = ["upvotes", "resolves", "comments", "reports"]
+    for table in tables_to_export:
+        export_table(table, today_str)
+
+    # 2. Clear all tables (Order matters due to Foreign Keys!)
+    # We clear children tables first, then the parent (reports)
+    tables_to_clear = ["upvotes", "resolves", "comments", "reports"]
+    for table in tables_to_clear:
+        clear_table(table)
+
+    print(f"🏁 Nightly job finished at {datetime.now()}")
 
 if __name__ == "__main__":
-    nightly_export()
+    nightly_job()

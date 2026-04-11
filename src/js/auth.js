@@ -10,6 +10,8 @@ const submitBtn = document.getElementById('submit-auth');
 const toggleAuth = document.getElementById('toggle-auth');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
+const consentGroup = document.getElementById('consent-group');
+const marketingConsent = document.getElementById('marketing-consent');
 
 let isLoginMode = true;
 
@@ -17,6 +19,7 @@ let isLoginMode = true;
 function clearAuthForm() {
     emailInput.value = '';
     passwordInput.value = '';
+    marketingConsent.checked = false;
     submitBtn.disabled = false;
     submitBtn.textContent = isLoginMode ? 'Sign In' : 'Sign Up';
 }
@@ -67,10 +70,14 @@ toggleAuth.addEventListener('click', () => {
         modalTitle.textContent = 'Login';
         submitBtn.textContent = 'Sign In';
         toggleAuth.textContent = 'Need an account? Sign Up';
+        consentGroup.style.display = 'none';
+        marketingConsent.required = false;
     } else {
         modalTitle.textContent = 'Create Account';
         submitBtn.textContent = 'Sign Up';
         toggleAuth.textContent = 'Already have an account? Sign In';
+        consentGroup.style.display = 'block';
+        marketingConsent.required = true;
     }
     // Optional: Clear password when toggling mode for better UX
     passwordInput.value = '';
@@ -89,7 +96,16 @@ authForm.addEventListener('submit', async (e) => {
     if (isLoginMode) {
         result = await sb.auth.signInWithPassword({ email, password });
     } else {
-        result = await sb.auth.signUp({ email, password });
+        // For signup, we include marketing_consent in user metadata
+        result = await sb.auth.signUp({ 
+            email, 
+            password,
+            options: {
+                data: {
+                    marketing_consent: marketingConsent.checked
+                }
+            }
+        });
     }
 
     const { data, error } = result;
