@@ -36,6 +36,7 @@ plan.md
 docs/architecture.md
 docs/database-schema.md
 SESSION_REPORT.md
+SESSION_REPORT_COPILOT.md
 
 # Test files — not for production
 src/test_connection.html
