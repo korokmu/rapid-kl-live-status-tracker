@@ -78,7 +78,8 @@ async function getStatus() {
         if (activeReport.confirmed_count >= 5) statusText += ' ✅ (Verified)';
 
         currentStatus.textContent = statusText;
-        statusMeta.textContent = `Last updated: ${new Date(activeReport.created_at).toLocaleTimeString()}`;
+        // Updated: Include Date + Time
+        statusMeta.textContent = `Last updated: ${new Date(activeReport.created_at).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}`;
         statusCard.className = `card status-${activeReport.status}`;
         statusIcon.textContent = activeReport.status === 'smooth' ? '🟢' : activeReport.status === 'slow' ? '🟡' : '🔴';
         verifyActions.style.display = activeReport.status !== 'smooth' ? 'block' : 'none';
@@ -108,7 +109,7 @@ async function fetchComments() {
         commentsList.innerHTML = comments.map(c => `
             <div class="comment-item">
                 <p class="comment-body">${escapeHTML(c.body)}</p>
-                <p class="comment-meta">Commuter • ${new Date(c.created_at).toLocaleTimeString()}</p>
+                <p class="comment-meta">Commuter • ${new Date(c.created_at).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' })}</p>
             </div>
         `).join('');
     } else {
